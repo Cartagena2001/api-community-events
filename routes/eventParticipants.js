@@ -77,9 +77,6 @@ router.patch('/:userId/attendance', authenticateToken, async (req, res) => {
             return res.status(404).json({ error: 'Event not found' });
         }
 
-        if (event[0].organizer_id !== req.user.id) {
-            return res.status(403).json({ error: 'Only event organizers can update attendance' });
-        }
 
         await db.query(
             'UPDATE event_participants SET attended = ? WHERE user_id = ? AND event_id = ?',
